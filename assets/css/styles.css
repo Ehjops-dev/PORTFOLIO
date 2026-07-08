@@ -42,8 +42,14 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
+  padding-top: var(--header-height);
   background:
     linear-gradient(rgba(37, 99, 235, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(37, 99, 235, 0.035) 1px, transparent 1px),
@@ -73,6 +79,15 @@ a {
   text-decoration: none;
 }
 
+a,
+p,
+h1,
+h2,
+h3,
+span {
+  overflow-wrap: break-word;
+}
+
 p,
 h1,
 h2,
@@ -86,8 +101,10 @@ h3 {
 }
 
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
   z-index: 50;
   background: rgba(255, 255, 255, 0.88);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -308,12 +325,12 @@ h1 {
   font-size: clamp(2.7rem, 5.6vw, 5.2rem);
   line-height: 1;
   letter-spacing: 0;
-  white-space: nowrap;
 }
 
 #typed-name {
   display: inline-block;
-  min-width: 12ch;
+  max-width: 100%;
+  min-width: 0;
 }
 
 #typed-name.is-typing::after {
@@ -356,6 +373,8 @@ h3 {
 
 .hero-title {
   display: inline-flex;
+  max-width: 100%;
+  flex-wrap: wrap;
   margin-bottom: 20px;
   padding: 8px 12px;
   background: var(--accent-soft);
@@ -465,6 +484,7 @@ h3 {
 
 .terminal-card {
   overflow: hidden;
+  max-width: 100%;
   border: 1px solid var(--dark);
   border-radius: 10px;
   background: var(--dark);
@@ -501,6 +521,7 @@ h3 {
 
 .terminal-body p {
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .terminal-body span {
@@ -515,6 +536,7 @@ h3 {
 
 .focus-list span {
   display: flex;
+  min-width: 0;
   min-height: 74px;
   align-items: center;
   padding: 16px;
@@ -580,6 +602,7 @@ h3 {
 .skill-card,
 .project-card,
 .education-card {
+  min-width: 0;
   min-height: 100%;
   padding: 28px;
   background: rgba(255, 255, 255, 0.9);
@@ -750,6 +773,7 @@ h3 {
 
 .contact-links a {
   display: flex;
+  min-width: 0;
   min-height: 58px;
   align-items: center;
   justify-content: space-between;
@@ -845,6 +869,8 @@ body.js-enabled .reveal.is-visible {
   .nav-links {
     position: fixed;
     inset: var(--header-height) 14px auto 14px;
+    max-height: calc(100dvh - var(--header-height) - 28px);
+    overflow-y: auto;
     display: none;
     flex-direction: column;
     align-items: stretch;
@@ -906,7 +932,8 @@ body.js-enabled .reveal.is-visible {
   }
 
   h1 {
-    font-size: clamp(2.25rem, 12vw, 2.9rem);
+    font-size: clamp(2.2rem, 11vw, 2.75rem);
+    line-height: 1.06;
   }
 
   h2 {
@@ -916,6 +943,10 @@ body.js-enabled .reveal.is-visible {
   .hero-actions,
   .btn {
     width: 100%;
+  }
+
+  .btn-primary {
+    box-shadow: none;
   }
 
   .skill-card,
@@ -939,6 +970,73 @@ body.js-enabled .reveal.is-visible {
     flex-direction: column;
     justify-content: center;
     gap: 4px;
-    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --header-height: 70px;
+  }
+
+  .container {
+    width: min(100% - 24px, 1120px);
+  }
+
+  .nav {
+    gap: 8px;
+  }
+
+  .brand {
+    gap: 8px;
+    font-size: 0.88rem;
+  }
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    font-size: 0.78rem;
+  }
+
+  .nav-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .theme-toggle {
+    width: 32px;
+    height: 32px;
+    margin-left: 0;
+  }
+
+  .hero {
+    padding: 56px 0;
+  }
+
+  .section {
+    padding: 64px 0;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 10.5vw, 2.32rem);
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .hero-title {
+    border-radius: 8px;
+    font-size: 0.94rem;
+  }
+
+  .terminal-card,
+  .education-card {
+    box-shadow: none;
+  }
+
+  .project-number {
+    font-size: 2.8rem;
+    right: 18px;
   }
 }
